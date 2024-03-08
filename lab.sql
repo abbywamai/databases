@@ -47,3 +47,30 @@ CREATE TABLE Results(
     FOREIGN  KEY (doctor_id) REFERENCES Doctors(doctor_id)
 );
 
+
+CREATE TABLE Chemicals(
+    chemical_id INT AUTO_INCREMENT PRIMARY KEY,
+    chemical_name VARCHAR(50);
+    supplier_id INT;
+    FOREIGN  KEY (supplier_id) REFERENCES Suppliers(supplier_id)
+);
+
+CREATE TABLE Suppliers(
+    supplier_id INT  AUTO_INCREMENT PRIMARY KEY,
+    supplier_name VARCHAR(50);
+    supplier_contact VARCHAR(50)
+);
+
+CREATE TABLE Orders(
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    chemical_id INT,
+    quantity INT;
+    supplier_id INT,
+    amount DECIMAL(10, 2),
+    date_ordered DATETIME,
+    expected_delivery_date DATETIME,
+    order_status  ENUM('Pending', 'In Process', 'Delivered') DEFAULT 'Pending',
+    FOREIGN  KEY (chemical_id) REFERENCES Chemicals(chemical_id),
+    FOREIGN  KEY (supplier_id) REFERENCES Suppliers(supplier_id)
+);
+
